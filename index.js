@@ -9,6 +9,22 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
+app.post("/", (req, res) => {
+  console.log("req==>", req);
+
+  res.send("Hello World");
+});
+
+app.put("/", (req, res) => {
+  console.log("req==>", req);
+
+  res.send("Hello World");
+});
+
+app.delete("/", (req, res) => {
+  console.log("req==>", req);
+
+  res.send("Hello World");
+});
+
 app.listen(PORT, () => console.log(`Server is running on localhost:${PORT}`));
-
-
