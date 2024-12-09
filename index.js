@@ -3,27 +3,33 @@ import express from "express";
 const app = express();
 const PORT = 5000;
 
-app.get("/", (req, res) => {
-  console.log("req==>", req);
+const getMethodandURL = (req, res, next) => {
+  console.log(Date.now());
+  const method = req.method;
+  const url = req.url;
+  console.log("method==>", method);
+  console.log("url==>", url);
+  next();
+};
 
-  res.send("Hello World");
-});
+let noOflimit = 5;
+const limitRequest = (req, res, next) => {
+  if (noOflimit > 0) {
+    noOflimit--;
+    console.log("Remaining limit:", noOflimit);
+    next();
+  } else {
+    res.status(500).send("Too many requests");
+  }
+};
 
-app.post("/", (req, res) => {
-  console.log("req==>", req);
+const requestTime = (req, res, next) => {
+  const requestTime = new Date().getMilliseconds();
+  console.log(requestTime);
+  next();
+};
 
-  res.send("Hello World");
-});
-
-app.put("/", (req, res) => {
-  console.log("req==>", req);
-
-  res.send("Hello World");
-});
-
-app.delete("/", (req, res) => {
-  console.log("req==>", req);
-
+app.get("/", requestTime, (req, res) => {
   res.send("Hello World");
 });
 
